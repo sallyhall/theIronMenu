@@ -9,7 +9,7 @@ var menuPage = {
   styling: function (){
 
   }
-}
+};
 
 $(document).ready(function () {
   menuPage.init();
