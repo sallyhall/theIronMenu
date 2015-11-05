@@ -1,0 +1,22 @@
+@import "palette";
+
+html{
+  margin:0;
+  padding:0;
+}
+
+.filters{
+  background-color: $grayBlue;
+  color: $lightGray;
+}
+
+header, footer{
+  background-color: $grayBlue;
+  color: $lightGray;
+  text-align: center;
+  padding:10px;
+}
+h1{
+  padding:0;
+  margin:0;
+}
