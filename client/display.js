@@ -30,6 +30,4 @@ var putMenuItems = function () {
       itemHTML=menuPage.menuItemTemplate(currVal);
       $('.menu').append(itemHTML);
     });
-
-
 };
