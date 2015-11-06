@@ -26,13 +26,13 @@ public class Main {
         stmt.execute();
     }
 
-    public static menuItem selectMenuItem(Connection conn, int id) throws SQLException {
-        menuItem item = null;
+    public static MenuItem selectMenuItem(Connection conn, int id) throws SQLException {
+        MenuItem item = null;
         PreparedStatement stmt = conn.prepareStatement("SELECT * FROM menu WHERE id = ?");
         stmt.setInt(1, id);
         ResultSet results = stmt.executeQuery();
         if (results.next()) {
-            item = new menuItem();
+            item = new MenuItem();
             item.name = results.getString("name");
             item.type = results.getString("type");
             item.breakfast = results.getBoolean("breakfast");
@@ -46,12 +46,12 @@ public class Main {
         return item;
     }
 
-    public static ArrayList<menuItem> selectMenu(Connection conn) throws SQLException {
-        ArrayList<menuItem> items = new ArrayList<>();
+    public static ArrayList<MenuItem> selectMenu(Connection conn) throws SQLException {
+        ArrayList<MenuItem> items = new ArrayList<>();
         PreparedStatement stmt = conn.prepareStatement("Select * FROM menu");
         ResultSet results = stmt.executeQuery();
         while (results.next()) {
-            menuItem item = new menuItem();
+            MenuItem item = new MenuItem();
             item.name = results.getString("name");
             item.type = results.getString("type");
             item.breakfast = results.getBoolean("breakfast");
@@ -67,11 +67,12 @@ public class Main {
     }
 
 
+
     public static void main(String[] args) throws SQLException {
         Connection conn = DriverManager.getConnection("jdbc:h2:./main");
         createTable(conn);
 
-        Spark.externalStaticFileLocation("public");
+        Spark.externalStaticFileLocation("client");
         Spark.init();
 
         //inserting test data
@@ -90,7 +91,25 @@ public class Main {
                     return json;
                 })
         );
+        Spark.post(
+                "/add-country",
+                ((request, response) -> {
+                    String name = request.queryParams("name");
+                    String type = request.queryParams("type");
+                    Boolean isBreakfast = Boolean.valueOf(request.queryParams("breakfast"));
+                    boolean isLunch = Boolean.valueOf(request.queryParams("lunch"));
+                    boolean isDinner = Boolean.valueOf(request.queryParams("dinner"));
+                    double price = Double.valueOf(request.queryParams("price"));
+                    boolean isVegetarian = Boolean.valueOf(request.queryParams("vegetarian"));
+                    boolean isGlutenFree = Boolean.valueOf(request.queryParams("glutenFree"));
+                    int priceRange = Integer.valueOf(request.queryParams("priceRange"));
+                        if (name == null || type == null){
+                            Spark.halt(403);
+                        }
+                    insertMenuItem(conn,name,type,isBreakfast,isLunch,isDinner,price,isVegetarian,isGlutenFree,priceRange);
+                    return"";
+                })
+        );
 
     }
-
 }
