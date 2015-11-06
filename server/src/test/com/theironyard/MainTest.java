@@ -26,13 +26,24 @@ public class MainTest {
         conn.close();
     }
 
-    @Test
+   /* @Test
     public void testMenuItem() throws SQLException {
         Connection conn = startConnection();
-        Main.insertMenuItem(conn, "Steak", "entree", true, true, true, 25.00, false, false, 2);
-        Main.insertMenuItem(conn, "Salad", "app", false, true, true, 10.00, true, true, 1);
+        Main.insertMenuItem(conn,1, "Steak", "entree", true, true, true, 25.00, false, false, 2);
+        Main.insertMenuItem(conn,2, "Salad", "app", false, true, true, 10.00, true, true, 1);
         MenuItem menuItem = Main.selectMenuItem(conn, 1);
         endConnection(conn);
         assertTrue(menuItem != null);
+    }
+    */
+    @Test
+    public void testRemove() throws SQLException {
+        Connection conn = startConnection();
+        Main.insertMenuItem(conn,1, "Steak", "entree", true, true, true, 25.00, false, false, 2);
+        Main.deleteItem(conn,1);
+        MenuItem item = Main.selectMenuItem(conn,1);
+        endConnection(conn);
+
+        assertTrue(item == null);
     }
 }
