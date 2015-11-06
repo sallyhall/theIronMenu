@@ -4,6 +4,7 @@ package com.theironyard;
  * Created by macbookair on 11/6/15.
  */
 public class MenuItem {
+    int id;
     String name;
     String type;
     Boolean breakfast;
@@ -15,6 +16,8 @@ public class MenuItem {
     int priceRange;
 
     public MenuItem(){}
+
+    public int getId() {return id;}
 
     public String getName() {
         return name;
