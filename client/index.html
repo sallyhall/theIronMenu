@@ -22,17 +22,36 @@
     <header>
       <h1>The Iron Bar Menu</h1>
     </header>
-    <aside class="filters col-md-3">
-      <ul>
-        <li class="filter">Price</li>
-        <li class="filter">Meal</li>
-        <li class="filter">Course</li>
-        <li class="filter">Vegetarian</li>
-        <li class="filter">Gluten Free</li>
-      </ul>
-    </aside>
-    <div class="menu col-md-">
-
+    <div class="container-fluid">
+      <aside class="filters col-md-3">
+        <ul>
+          <li class="filter">Price</li>
+          <li class="filter">Meal</li>
+          <li class="filter">Course</li>
+          <li class="filter">Vegetarian</li>
+          <li class="filter">Gluten Free</li>
+        </ul>
+      </aside>
+      <div class="menu col-md-9">
+        <div class="menuItem" id="<%=id%>">
+          <h3>Pizza</h3>
+          <p>
+            $4.00
+          </p>
+        </div>
+        <div class="menuItem" id="<%=id%>">
+          <h3>Beer</h3>
+          <p>
+            $3.00
+          </p>
+        </div>
+        <div class="menuItem" id="<%=id%>">
+          <h3>Wings</h3>
+          <p>
+            $6.00
+          </p>
+        </div>
+      </div>
     </div>
 
     <footer>
