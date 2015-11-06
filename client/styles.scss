@@ -1,13 +1,14 @@
 @import "palette";
 
-html{
+html, body{
   margin:0;
   padding:0;
+  height: 100%;
 }
 
 .filters{
-  background-color: $grayBlue;
-  color: $lightGray;
+  background-color: $mediumGray;
+  color: $darkGray;
 }
 
 header, footer{
@@ -15,7 +16,14 @@ header, footer{
   color: $lightGray;
   text-align: center;
   padding:10px;
+  min-height: 10%;
 }
+.container-fluid{
+  min-height: 80%;
+  padding-left: 0;
+}
+
+
 h1{
   padding:0;
   margin:0;

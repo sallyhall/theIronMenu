@@ -13,7 +13,7 @@ var menuPage = {
 };
 
   },
-  url: "localhost:3000",
+  url: "localhost:4567",
   menuItemTemplate: _.template($("#menuItemTmpl").html()),
   currentDataSet: {},
 }
