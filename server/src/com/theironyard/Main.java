@@ -66,6 +66,10 @@ public class Main {
         return items;
     }
 
+    //static void editItem (Connection conn, int id, String name, String type, boolean breakfast, boolean lunch, boolean dinner, double price, boolean vegetarian, boolean glutenFree, int priceRange) throws SQLException {
+      //  PreparedStatement stmt = conn.prepareStatement("UPDATE menu SET name =?, type=?, breakfast = ?,");
+
+    //}
 
 
     public static void main(String[] args) throws SQLException {
@@ -76,15 +80,15 @@ public class Main {
         Spark.init();
 
         //inserting test data
-        if (selectMenu(conn).size()==0){
+        if (selectMenu(conn).size() == 0) {
             Main.insertMenuItem(conn, "Steak", "entree", true, true, true, 25.00, false, false, 2);
             Main.insertMenuItem(conn, "Salad", "app", false, true, true, 10.00, true, true, 1);
             Main.insertMenuItem(conn, "Beer", "drink", true, true, true, 7.00, true, false, 1);
-            Main.insertMenuItem(conn,  "BLT", "entree", false, true, true, 12.50, false, false, 1);
+            Main.insertMenuItem(conn, "BLT", "entree", false, true, true, 12.50, false, false, 1);
         }
         //creating routes for Ajax
         Spark.get(
-                "/",
+                "/menu",
                 ((request, response) -> {
                     JsonSerializer serializer = new JsonSerializer();
                     String json = serializer.serialize(selectMenu(conn));
@@ -103,13 +107,12 @@ public class Main {
                     boolean isVegetarian = Boolean.valueOf(request.queryParams("vegetarian"));
                     boolean isGlutenFree = Boolean.valueOf(request.queryParams("glutenFree"));
                     int priceRange = Integer.valueOf(request.queryParams("priceRange"));
-                        if (name == null || type == null){
-                            Spark.halt(403);
-                        }
-                    insertMenuItem(conn,name,type,isBreakfast,isLunch,isDinner,price,isVegetarian,isGlutenFree,priceRange);
-                    return"";
+                    if (name == null || type == null) {
+                        Spark.halt(403);
+                    }
+                    insertMenuItem(conn, name, type, isBreakfast, isLunch, isDinner, price, isVegetarian, isGlutenFree, priceRange);
+                    return "";
                 })
         );
-
     }
 }

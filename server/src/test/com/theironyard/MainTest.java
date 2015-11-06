@@ -31,7 +31,7 @@ public class MainTest {
         Connection conn = startConnection();
         Main.insertMenuItem(conn, "Steak", "entree", true, true, true, 25.00, false, false, 2);
         Main.insertMenuItem(conn, "Salad", "app", false, true, true, 10.00, true, true, 1);
-        menuItem menuItem = Main.selectMenuItem(conn, 1);
+        MenuItem menuItem = Main.selectMenuItem(conn, 1);
         endConnection(conn);
         assertTrue(menuItem != null);
     }
