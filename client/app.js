@@ -1,7 +1,9 @@
 var menuPage = {
   init: function (){
     display.init();
-    //edit.init();
+    deleteItem.init();
+    add.init();
+    edit.init();
   },
   events: function () {
 
@@ -10,7 +12,6 @@ var menuPage = {
 
   },
 
-  // url: "localhost:4567",
   menuItemTemplate: _.template($("#menuItemTmpl").html()),
   currentDataSet: {},
 };

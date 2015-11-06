@@ -8,7 +8,7 @@
 
     <!-- templates -->
     <script type="text/html" id = "menuItemTmpl">
-      <div class="menuItem">
+      <div class="menuItem" id="<%=id%>">
         <h3><%=name%></h3>
         <p>
           <%=price%>
@@ -27,18 +27,45 @@
     </header>
     <div class="container-fluid">
       <aside class="filters col-md-3">
-        <ul>
-          <li class="filter">Price</li>
-          <li class="filter">Meal</li>
-          <li class="filter">Course</li>
-          <li class="filter">Vegetarian</li>
-          <li class="filter">Gluten Free</li>
-        </ul>
+        <h3>Narrow Your Choices</h3>
+        <div class="dropdown">
+          <button class="btn btn-default dropdown-toggle" type="button" id="filterMenuMeal" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            Meal
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="filterMenuMeal">
+            <li><a href="#">Breakfast</a></li>
+            <li><a href="#">Lunch</a></li>
+            <li><a href="#">Dinner</a></li>
+          </ul>
+        </div>
+        <div class="dropdown">
+          <button class="btn btn-default dropdown-toggle" type="button" id="filterMenuType" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            Course
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="filterMenuType">
+            <li><a href="#">Appetizers</a></li>
+            <li><a href="#">Entrees</a></li>
+            <li><a href="#">Desserts</a></li>
+            <li><a href="#">Drinks</a></li>
+          </ul>
+        </div>
+        <div class="checkbox id=filterGlutenFree">
+          <label>
+            <input type="checkbox"> Gluten Free
+          </label>
+        </div>
+        <div class="checkbox id=filterVegetarian">
+          <label>
+            <input type="checkbox"> Vegetarian
+          </label>
+        </div>
       </aside>
       <div class="menu col-md-9">
 
       </div>
-
+    </div>
     <footer>
       <span>Copyright 2015 The Iron Bar</span>
     </footer>
@@ -50,6 +77,8 @@
     <!-- app files -->
     <script src="display.js" charset="utf-8"></script>
     <script src="edit.js" charset="utf-8"></script>
+    <script src="delete.js" charset="utf-8"></script>
+    <script src="add.js" charset="utf-8"></script>
     <script src="app.js" charset="utf-8"></script>
 
   </body>
