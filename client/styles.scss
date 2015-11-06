@@ -14,9 +14,11 @@ html, body{
 header, footer{
   background-color: $grayBlue;
   color: $lightGray;
-  text-align: center;
   padding:10px;
   min-height: 10%;
+  h1{
+    text-align: center;
+  }
 }
 .container-fluid{
   min-height: 80%;
