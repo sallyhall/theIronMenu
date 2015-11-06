@@ -196,13 +196,15 @@ public class Main {
         );
     }
 }
-        /*
+
+/*
+
         Spark.get(
                 "/type-filer",
                 ((request, response) -> {
+                String type = request.queryParams("type");
 
-                    try{
-                    String type = request.queryParams("type");
+
 
 
 
