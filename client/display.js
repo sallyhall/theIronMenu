@@ -1,22 +1,22 @@
 var display = {
   init: function (){
-    // body...
+    display.styling();
   },
   events: function () {
     // body...
   },
   styling: function (){
-
+    getAllMenuItems();
   }
 };
 
 var getAllMenuItems = function () {
     $.ajax({
         type: 'GET',
-        url: menuPage.url,
+        url: '/menu',
         success: function(data) {
-        menuPage.currentDataSet = JSON.parse(data);
-          // this line will refer to the function that will edit the menuItem
+          menuPage.currentDataSet = JSON.parse(data);
+          putMenuItems();
         },
         failure: function(data) {
           console.log("FAILURE: ", data);

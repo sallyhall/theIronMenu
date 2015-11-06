@@ -1,6 +1,6 @@
 var menuPage = {
   init: function (){
-    // display.init();
+    display.init();
     //edit.init();
   },
   events: function () {
@@ -8,15 +8,12 @@ var menuPage = {
   },
   styling: function (){
 
-}
-
-};
-
   },
-  url: "localhost:4567",
+
+  // url: "localhost:4567",
   menuItemTemplate: _.template($("#menuItemTmpl").html()),
   currentDataSet: {},
-}
+};
 
 
 
