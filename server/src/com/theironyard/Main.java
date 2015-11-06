@@ -3,6 +3,8 @@ package com.theironyard;
 import jodd.json.JsonSerializer;
 import spark.Spark;
 
+import java.lang.reflect.*;
+import java.lang.reflect.Array;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -33,7 +35,7 @@ public class Main {
         ResultSet results = stmt.executeQuery();
         if (results.next()) {
             item = new MenuItem();
-            item.id=results.getInt("id");
+            item.id = results.getInt("id");
             item.name = results.getString("name");
             item.type = results.getString("type");
             item.breakfast = results.getBoolean("breakfast");
@@ -68,7 +70,29 @@ public class Main {
         return items;
     }
 
-    static void editItem (Connection conn, int id, String name, String type, boolean breakfast, boolean lunch, boolean dinner, double price, boolean vegetarian, boolean glutenFree, int priceRange) throws SQLException {
+    public static ArrayList<MenuItem> typeFilter(Connection conn, String type) throws SQLException {
+        ArrayList<MenuItem> types = new ArrayList<>();
+        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM menu WHERE type = ?");
+        stmt.setString(1, type);
+        ResultSet results = stmt.executeQuery();
+        while (results.next()) {
+            MenuItem item = new MenuItem();
+            item.id = results.getInt("id");
+            item.name = results.getString("name");
+            item.type = results.getString("type");
+            item.breakfast = results.getBoolean("breakfast");
+            item.lunch = results.getBoolean("lunch");
+            item.dinner = results.getBoolean("dinner");
+            item.price = results.getDouble("price");
+            item.vegetarian = results.getBoolean("vegetarian");
+            item.glutenFree = results.getBoolean("glutenFree");
+            item.priceRange = results.getInt("priceRange");
+            types.add(item);
+        }
+        return types;
+    }
+
+    static void editItem(Connection conn, int id, String name, String type, boolean breakfast, boolean lunch, boolean dinner, double price, boolean vegetarian, boolean glutenFree, int priceRange) throws SQLException {
         PreparedStatement stmt = conn.prepareStatement("UPDATE menu SET name =?, type=?, breakfast = ?,lunch = ?, dinner = ? price =?, vegetarian = ? gultenFree =?, priceRange = ? WHERE id =? ");
         stmt.setString(1, name);
         stmt.setString(2, type);
@@ -82,7 +106,7 @@ public class Main {
         stmt.execute();
     }
 
-    static void deleteItem (Connection conn, int id) throws SQLException {
+    static void deleteItem(Connection conn, int id) throws SQLException {
         PreparedStatement stmt = conn.prepareStatement("DELETE FROM menu WHERE id =?");
         stmt.setInt(1, id);
         stmt.execute();
@@ -99,7 +123,7 @@ public class Main {
         //inserting test data
         if (selectMenu(conn).size() == 0) {
             Main.insertMenuItem(conn, 1, "Steak", "entree", true, true, true, 25.00, false, false, 2);
-            Main.insertMenuItem(conn, 2,"Salad", "app", false, true, true, 10.00, true, true, 1);
+            Main.insertMenuItem(conn, 2, "Salad", "app", false, true, true, 10.00, true, true, 1);
             Main.insertMenuItem(conn, 3, "Beer", "drink", true, true, true, 7.00, true, false, 1);
             Main.insertMenuItem(conn, 4, "BLT", "entree", false, true, true, 12.50, false, false, 1);
         }
@@ -149,7 +173,7 @@ public class Main {
                     try {
                         int idNum = Integer.valueOf(id);
                         editItem(conn, idNum, name, type, isBreakfast, isLunch, isDinner, price, isVegetarian, isGlutenFree, priceRange);
-                    }catch (Exception e){
+                    } catch (Exception e) {
                     }
                     response.redirect("/menu");
                     return "";
@@ -160,10 +184,10 @@ public class Main {
                 "/delete-item",
                 ((request, response) -> {
                     String id = request.queryParams("id");
-                    try{
+                    try {
                         int idNum = Integer.valueOf(id);
-                        deleteItem(conn,idNum);
-                    }catch (Exception e){
+                        deleteItem(conn, idNum);
+                    } catch (Exception e) {
 
                     }
                     response.redirect("/menu");
@@ -172,3 +196,21 @@ public class Main {
         );
     }
 }
+
+/*
+
+        Spark.get(
+                "/type-filer",
+                ((request, response) -> {
+                String type = request.queryParams("type");
+
+
+
+
+
+                    }
+                }
+        );
+    }
+}
+*/
