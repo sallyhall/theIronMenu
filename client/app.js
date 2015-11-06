@@ -8,11 +8,16 @@ var menuPage = {
   },
   styling: function (){
 
+}
+
+};
+
   },
   url: "localhost:4567",
   menuItemTemplate: _.template($("#menuItemTmpl").html()),
   currentDataSet: {},
 }
+
 
 
 $(document).ready(function () {
