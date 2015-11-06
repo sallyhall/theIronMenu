@@ -25,10 +25,11 @@ var getAllMenuItems = function () {
 };
 
 var putMenuItems = function () {
+  var itemHTML;
   _.each(menuPage.currentDataSet, function(currVal, idx, arr){
-      currVal.
-      };
-    var itemHTML;
-    $('.menu').html(itemHTML);
+      itemHTML=menuPage.menuItemTemplate(currVal);
+      $('.menu').append(itemHTML);
+    });
+
 
 };
