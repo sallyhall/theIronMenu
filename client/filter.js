@@ -4,7 +4,7 @@ var filter = {
     filter.styling();
   },
   events: function () {
-    $("aside").on("click",".dropdown-menu li a", function(event){
+    $("aside .dropdown-menu li a").on("click", function(event){
       event.preventDefault();
       $(this).parents(".dropdown").find(".selection").text($(this).text());
       $(this).parents("div").siblings("div").addClass("hidden");
@@ -13,7 +13,7 @@ var filter = {
       filter.value=$(this).text().toLowerCase();
       filter.getFilteredItems(filter.category,filter.value);
     });
-    $("aside").on("click","input", function (event) {
+    $("aside input").on("click", function (event) {
       $(this).parents("div").siblings("div").addClass("hidden");
       $("#resetFilters").removeClass("hidden");
       filter.category=$(this).parents("div").attr("id").slice(6).toLowerCase();
@@ -39,7 +39,7 @@ var filter = {
   value:"",
   getFilteredMenuItems: function (category,value) {
     $.ajax({
-      type: 'POST',
+      type: 'GET',
       url: '/filter-item',
       data: {category:value},
       success: function(data) {

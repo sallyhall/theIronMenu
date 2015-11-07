@@ -9,6 +9,7 @@ var display = {
     display.getAllMenuItems();
   },
   getAllMenuItems: function () {
+    $(".menu").html("");
       $.ajax({
           type: 'GET',
           url: '/menu',
@@ -23,7 +24,6 @@ var display = {
   },
   putMenuItems: function () {
     var itemHTML;
-    $(".menu").html("");
     _.each(menuPage.currentDataSet, function(currVal, idx, arr){
         itemHTML=menuPage.menuItemTemplate(currVal);
         $('.menu').append(itemHTML);

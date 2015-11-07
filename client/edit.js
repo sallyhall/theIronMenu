@@ -13,12 +13,13 @@ var edit = {
       var $item = $(this).parent();
       var id = $item.attr("id").slice(-1);
       var editedItem = edit.createItemFromEditForm(id)
+      console.log(editedItem);
       $.ajax({
         type: 'POST',
         url: '/edit-item',
         data: editedItem,
         success: function(data) {
-          console.log("edited");
+          console.log("edited",data);
           $item.parent().replaceWith(menuPage.menuItemTemplate(editedItem));
         },
         failure: function(data) {
