@@ -12,7 +12,7 @@ var edit = {
       event.preventDefault();
       var $item = $(this).parent();
       var id = $item.attr("id").slice(-1);
-      var editedItem = edit.createItemFromEditForm(id)
+      var editedItem = edit.createItemFromEditForm(id);
       $.ajax({
         type: 'POST',
         url: '/edit-item',
@@ -27,7 +27,7 @@ var edit = {
       });
     });
     //thanks to http://stackoverflow.com/questions/13437446/how-to-display-selected-item-in-bootstrap-button-dropdown-title
-    $(".menu").on('click', '.dropdown-menu li a', function(event){
+    $(".dropdown-menu li a").on('click', function(event){
       event.preventDefault();
       $(this).parents(".dropdown").find(".selection").text($(this).text());
       $(this).parents(".dropdown").find(".selection").val($(this).text());
@@ -45,8 +45,8 @@ var edit = {
     editedItem.vegetarian=itemForm.find(".itemVeg")[0].checked;
     editedItem.id=id;
     editedItem.lunch=itemForm.find(".itemLunch")[0].checked;
-    editedItem.name=itemForm.find(".itemName").val();;
-    editedItem.price=itemForm.find(".itemPrice").val();;
+    editedItem.name=itemForm.find(".itemName").val();
+    editedItem.price=itemForm.find(".itemPrice").val();
     editedItem.priceRange=Math.floor(editedItem.price/10) +1;
     editedItem.type=itemForm.find(".selection").text().trim();
     switch (editedItem.type){
@@ -62,7 +62,7 @@ var edit = {
       case "Drink":
         editedItem.type =  "drink";
         break;
-    };
+    }
     return editedItem;
   }
-}
+};
