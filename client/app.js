@@ -4,6 +4,7 @@ var menuPage = {
     deleteItem.init();
     add.init();
     edit.init();
+    filter.init();
   },
   events: function () {
 
