@@ -1,10 +1,6 @@
 package com.theironyard;
-
 import jodd.json.JsonSerializer;
 import spark.Spark;
-
-import java.lang.reflect.*;
-import java.lang.reflect.Array;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -14,7 +10,7 @@ public class Main {
         stmt.execute("CREATE TABLE IF NOT EXISTS menu (id IDENTITY, name VARCHAR, type VARCHAR, breakfast BOOLEAN, lunch BOOLEAN, dinner BOOLEAN, price DECIMAL, vegetarian BOOLEAN, glutenFree BOOLEAN, priceRange int)");
     }
 
-    public static void insertMenuItem(Connection conn, int id, String name, String type, boolean breakfast, boolean lunch, boolean dinner, double price, boolean vegetarian, boolean glutenFree, int priceRange) throws SQLException {
+    public static void insertMenuItem(Connection conn, String name, String type, boolean breakfast, boolean lunch, boolean dinner, double price, boolean vegetarian, boolean glutenFree, int priceRange) throws SQLException {
         PreparedStatement stmt = conn.prepareStatement("INSERT INTO menu VALUES (NULL,?,?,?,?,?,?,?,?,?)");
         stmt.setString(1, name);
         stmt.setString(2, type);
@@ -79,21 +75,21 @@ public class Main {
             MenuItem item = new MenuItem();
             item.id = results.getInt("id");
             item.name = results.getString("name");
-            item.type = results.getString("type");
-            item.breakfast = results.getBoolean("breakfast");
-            item.lunch = results.getBoolean("lunch");
-            item.dinner = results.getBoolean("dinner");
+            item.type = results.getString("type"); // filter finished
+            item.breakfast = results.getBoolean("breakfast"); // needs boolean filter
+            item.lunch = results.getBoolean("lunch");// needs boolean filter
+            item.dinner = results.getBoolean("dinner");// needs boolean filter
             item.price = results.getDouble("price");
-            item.vegetarian = results.getBoolean("vegetarian");
-            item.glutenFree = results.getBoolean("glutenFree");
-            item.priceRange = results.getInt("priceRange");
+            item.vegetarian = results.getBoolean("vegetarian");// needs boolean filter
+            item.glutenFree = results.getBoolean("glutenFree");// needs boolean filter
+            item.priceRange = results.getInt("priceRange"); // needs int filter....?
             types.add(item);
         }
         return types;
     }
 
     static void editItem(Connection conn, int id, String name, String type, boolean breakfast, boolean lunch, boolean dinner, double price, boolean vegetarian, boolean glutenFree, int priceRange) throws SQLException {
-        PreparedStatement stmt = conn.prepareStatement("UPDATE menu SET name =?, type=?, breakfast = ?,lunch = ?, dinner = ? price =?, vegetarian = ? gultenFree =?, priceRange = ? WHERE id =? ");
+        PreparedStatement stmt = conn.prepareStatement("UPDATE menu SET name =?, type=?, breakfast = ?,lunch = ?, dinner = ?, price =?, vegetarian = ?, glutenFree =?, priceRange = ? WHERE id =? ");
         stmt.setString(1, name);
         stmt.setString(2, type);
         stmt.setBoolean(3, breakfast);
@@ -103,6 +99,7 @@ public class Main {
         stmt.setBoolean(7, vegetarian);
         stmt.setBoolean(8, glutenFree);
         stmt.setInt(9, priceRange);
+        stmt.setInt(10,id);
         stmt.execute();
     }
 
@@ -112,34 +109,52 @@ public class Main {
         stmt.execute();
     }
 
-
     public static void main(String[] args) throws SQLException {
         Connection conn = DriverManager.getConnection("jdbc:h2:./main");
         createTable(conn);
 
-        Spark.externalStaticFileLocation("client");
+        Spark.externalStaticFileLocation("../client");
         Spark.init();
 
-        //inserting test data
-        if (selectMenu(conn).size() == 0) {
-            Main.insertMenuItem(conn, 1, "Steak", "entree", true, true, true, 25.00, false, false, 2);
-            Main.insertMenuItem(conn, 2, "Salad", "app", false, true, true, 10.00, true, true, 1);
-            Main.insertMenuItem(conn, 3, "Beer", "drink", true, true, true, 7.00, true, false, 1);
-            Main.insertMenuItem(conn, 4, "BLT", "entree", false, true, true, 12.50, false, false, 1);
+        if (selectMenu(conn).size() ==0) {
+            Main.insertMenuItem(conn, "Full Staxx Pancakes", "entree", true, true, true, 100.00, true, true, 3);
+            Main.insertMenuItem(conn,  "Soup", "app", false, true, true, 12.00, true, true, 1);
+            Main.insertMenuItem(conn, "Nachos", "app", false, true, true, 20.00, true, false, 2);
+            Main.insertMenuItem(conn,  "Chicken Wings", "entree", false, true, true, 15.00, true, true, 3);
+            Main.insertMenuItem(conn,  "Cheesecake", "dessert", true, true, true, 10.00, true, false, 1);
+            Main.insertMenuItem(conn,  "Tofu Stir Fry", "entree", false, true, true, 22.00, true, true, 2);
+            Main.insertMenuItem(conn, "Eggs Benedict", "entree", true, false, false, 13.50, true, false, 2);
+            Main.insertMenuItem(conn, "Chocolate Lava Cake", "dessert", false, true, true, 9.00, true, true, 3);
+            Main.insertMenuItem(conn, "Fruit Cup", "app", false, true, true, 4.00, true, true, 1);
+            Main.insertMenuItem(conn, "Breakfast Burrito", "entree", true, false, false, 12.00, true, true, 2);
+            Main.insertMenuItem(conn, "Mimosa", "drink", true, false, false, 100.00, true, true, 3);
+            Main.insertMenuItem(conn, "Bloody Mary", "drink", true, true, false, 9.00, true, true, 1);
+            Main.insertMenuItem(conn, "Pizza", "entree", false, true, true, 25.00, false, false, 2);
+            Main.insertMenuItem(conn, "Mimosa", "drink", true, false, false, 100.00, true, true, 3);
+
         }
+
         //creating routes for Ajax
         Spark.get(
                 "/menu",
                 ((request, response) -> {
+                    String type = request.queryParams("type");
+                    ArrayList<MenuItem> items;
+
+                    if (type == null) {
+                        items = selectMenu(conn);
+                    } else {
+                        items = typeFilter(conn, type);
+                    }
                     JsonSerializer serializer = new JsonSerializer();
-                    String json = serializer.serialize(selectMenu(conn));
+                    String json = serializer.serialize(items);
                     return json;
                 })
         );
+
         Spark.post(
                 "/add-item",
                 ((request, response) -> {
-                    int id = Integer.valueOf(request.queryParams("id"));
                     String name = request.queryParams("name");
                     String type = request.queryParams("type");
                     Boolean isBreakfast = Boolean.valueOf(request.queryParams("breakfast"));
@@ -152,7 +167,7 @@ public class Main {
                     if (name == null || type == null) {
                         Spark.halt(403);
                     }
-                    insertMenuItem(conn, id, name, type, isBreakfast, isLunch, isDinner, price, isVegetarian, isGlutenFree, priceRange);
+                    insertMenuItem(conn, name, type, isBreakfast, isLunch, isDinner, price, isVegetarian, isGlutenFree, priceRange);
                     return "";
                 })
         );
@@ -160,10 +175,10 @@ public class Main {
         Spark.post(
                 "/edit-item",
                 ((request, response) -> {
-                    int id = Integer.valueOf(request.queryParams("id"));
+                    String id = request.queryParams("id");
                     String name = request.queryParams("name");
                     String type = request.queryParams("type");
-                    Boolean isBreakfast = Boolean.valueOf(request.queryParams("breakfast"));
+                    boolean isBreakfast = Boolean.valueOf(request.queryParams("breakfast"));
                     boolean isLunch = Boolean.valueOf(request.queryParams("lunch"));
                     boolean isDinner = Boolean.valueOf(request.queryParams("dinner"));
                     double price = Double.valueOf(request.queryParams("price"));
@@ -174,8 +189,9 @@ public class Main {
                         int idNum = Integer.valueOf(id);
                         editItem(conn, idNum, name, type, isBreakfast, isLunch, isDinner, price, isVegetarian, isGlutenFree, priceRange);
                     } catch (Exception e) {
+
                     }
-                    response.redirect("/menu");
+
                     return "";
                 })
         );
@@ -190,27 +206,9 @@ public class Main {
                     } catch (Exception e) {
 
                     }
-                    response.redirect("/menu");
                     return "";
                 })
         );
+
     }
 }
-
-/*
-
-        Spark.get(
-                "/type-filer",
-                ((request, response) -> {
-                String type = request.queryParams("type");
-
-
-
-
-
-                    }
-                }
-        );
-    }
-}
-*/
