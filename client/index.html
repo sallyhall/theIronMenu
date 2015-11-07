@@ -32,22 +32,17 @@
           </div>
           <div class="checkbox">
             <label>
-              <input type="checkbox" class="itemVeg" <%= vegetarian ?  "checked" : '' %>> Vegetarian
+              <input type="checkbox" class="itemVeg" <% vegetarian ?  "checked" : '' %>> Vegetarian
             </label>
           </div>
           <div class="checkbox">
             <label>
-              <input type="checkbox" class="itemBreakfast" <%= breakfast ?  "checked" : '' %>> Breakfast
+              <input type="checkbox" class="itemLunch" <% lunch ?  "checked" : '' %>> Lunch
             </label>
           </div>
           <div class="checkbox">
             <label>
-              <input type="checkbox" class="itemLunch" <%= lunch ?  "checked" : '' %>> Lunch
-            </label>
-          </div>
-          <div class="checkbox">
-            <label>
-              <input type="checkbox" class="itemDinner" <%= dinner ?  "checked" : '' %>> Dinner
+              <input type="checkbox" class="itemDinner" <% dinner ?  "checked" : '' %>> Dinner
             </label>
           </div>
           <div class="dropdown">
