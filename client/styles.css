@@ -13,12 +13,18 @@ header, footer {
   color: #dcdcdd;
   padding: 10px;
   min-height: 10%; }
-  header h1, footer h1 {
+  header h1, header h3, footer h1, footer h3 {
     text-align: center; }
 
 .container-fluid {
   min-height: 80%;
   padding-left: 0; }
+
+.hidden {
+  display: none; }
+
+.checkbox {
+  display: inline; }
 
 h1 {
   padding: 0;

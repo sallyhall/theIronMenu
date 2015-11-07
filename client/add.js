@@ -1,37 +1,38 @@
 var add = {
   init: function (){
-    // body...
+
   },
   events: function () {
-    // body...
+
   },
   styling: function (){
 
+  },
+  setMenuItem: function(){
+    var newMenuItem = new MenuItem();
+    newMenuItem.breakfast = breakfast;
+    newMenuItem.dinner=dinner;
+    newMenuItem.glutenFree=glutenFree;
+    newMenuItem.id=id;
+    newMenuItem.lunch=lunch;
+    newMenuItem.name=name;
+    newMenuItem.price=price;
+    newMenuItem.type=type;
+    newMenuItem.vegetarian=vegetarian;
+  },
+  addNewItem: function(newMenuItem){
+            $.ajax({
+              type: 'POST',
+              url: "/add-item",
+              data: newMenuItem,
+              success: function(data){
+                console.log("Success");
+                menuPage.currentDataSet=[newMenuItem];
+                display.putMenuItems();
+              },
+              failure: function(data){
+                console.log("Failure");
+              }
+            });
   }
 };
-
-setMenuItem: function(item){
-  menuPage.currentMenuItem = item;
-};
-
-editCurrentItem: function(oldMenuItem, newMenuItem){
-    _.each(menuPage.currentServerData, function(currVal, idx, arr){
-        if(currVal.menuItem === oldMenuItem){
-          var editedItem = {
-            _id: currVal._id,
-            menuItem: newMenuItem,
-            msg: currVal.MnItem
-          };
-
-          $.ajax({
-            type: 'PUT',
-            url: menuPage.url + currVal._id,
-            data: editedMenuItem,
-            async: false,
-            success: function(resp){
-              console.log("Success");
-            },
-            failure: function(resp){
-              console.log("Failure");
-            }
-          });
