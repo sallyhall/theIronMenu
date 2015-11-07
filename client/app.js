@@ -4,6 +4,7 @@ var menuPage = {
     deleteItem.init();
     add.init();
     edit.init();
+    filter.init();
   },
   events: function () {
 
@@ -17,16 +18,16 @@ var menuPage = {
 };
 
 var MenuItem = function(breakfast,dinner,glutenFree,id,lunch,name,price,type,vegetarian){
-  this.breakfast = breakfast;
-  this.dinner=dinner;
-  this.glutenFree=glutenFree;
   this.id=id;
-  this.lunch=lunch;
   this.name=name;
-  this.price=price;
-  this.priceRange=Math.floor(price/10) +1;
   this.type=type;
+  this.breakfast = breakfast;
+  this.lunch=lunch;
+  this.dinner=dinner;
+  this.price=price;
   this.vegetarian=vegetarian;
+  this.glutenFree=glutenFree;
+  this.priceRange=Math.floor(price/10) +1;
 };
 
 

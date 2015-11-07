@@ -27,27 +27,22 @@
           <div class="checkbox" <%= glutenFree ?  "checked" : '' %>>
             <label>
               <input type="checkbox" class="itemGF"> Gluten Free
-              
+
             </label>
           </div>
           <div class="checkbox">
             <label>
-              <input type="checkbox" class="itemVeg" <%= vegetarian ?  "checked" : '' %>> Vegetarian
+              <input type="checkbox" class="itemVeg" <% vegetarian ?  "checked" : '' %>> Vegetarian
             </label>
           </div>
           <div class="checkbox">
             <label>
-              <input type="checkbox" class="itemBreakfast" <%= breakfast ?  "checked" : '' %>> Breakfast
+              <input type="checkbox" class="itemLunch" <% lunch ?  "checked" : '' %>> Lunch
             </label>
           </div>
           <div class="checkbox">
             <label>
-              <input type="checkbox" class="itemLunch" <%= lunch ?  "checked" : '' %>> Lunch
-            </label>
-          </div>
-          <div class="checkbox">
-            <label>
-              <input type="checkbox" class="itemDinner" <%= dinner ?  "checked" : '' %>> Dinner
+              <input type="checkbox" class="itemDinner" <% dinner ?  "checked" : '' %>> Dinner
             </label>
           </div>
           <div class="dropdown">
@@ -115,7 +110,7 @@
         <h3>Narrow Your Choices</h3>
         <div class="dropdown">
           <button class="btn btn-default dropdown-toggle" type="button" id="filterMenuMeal" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-            Meal
+            <span class="selection">Meal</span>
             <span class="caret"></span>
           </button>
           <ul class="dropdown-menu" aria-labelledby="filterMenuMeal">
@@ -126,7 +121,7 @@
         </div>
         <div class="dropdown">
           <button class="btn btn-default dropdown-toggle" type="button" id="filterMenuType" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-            Course
+            <span class="selection">Course</span>
             <span class="caret"></span>
           </button>
           <ul class="dropdown-menu" aria-labelledby="filterMenuType">
@@ -136,16 +131,17 @@
             <li><a href="#">Drinks</a></li>
           </ul>
         </div>
-        <div class="checkbox id=filterGlutenFree">
+        <div class="checkbox" id="filterGlutenFree">
           <label>
             <input type="checkbox"> Gluten Free
           </label>
         </div>
-        <div class="checkbox id=filterVegetarian">
+        <div class="checkbox" id="filterVegetarian">
           <label>
             <input type="checkbox"> Vegetarian
           </label>
         </div>
+        <button type="button" id="resetFilters" class="hidden btn btn-default">Reset Filters</button>
       </aside>
       <div class="menu col-md-9">
 
@@ -164,6 +160,7 @@
     <script src="edit.js" charset="utf-8"></script>
     <script src="delete.js" charset="utf-8"></script>
     <script src="add.js" charset="utf-8"></script>
+    <script src="filter.js" charset="utf-8"></script>
     <script src="app.js" charset="utf-8"></script>
 
   </body>
