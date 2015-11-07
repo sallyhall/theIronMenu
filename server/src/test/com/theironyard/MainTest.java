@@ -39,7 +39,7 @@ public class MainTest {
     @Test
     public void testRemove() throws SQLException {
         Connection conn = startConnection();
-        Main.insertMenuItem(conn,1, "Steak", "entree", true, true, true, 25.00, false, false, 2);
+        Main.insertMenuItem(conn, "Steak", "entree", true, true, true, 25.00, false, false, 2);
         Main.deleteItem(conn,1);
         MenuItem item = Main.selectMenuItem(conn,1);
         endConnection(conn);
