@@ -15,6 +15,65 @@
         </p>
         <span class="glyphicon glyphicon-pencil admin" aria-hidden="true"></span>
         <span class="glyphicon glyphicon-trash admin" aria-hidden="true"></span>
+        <form id="editID<%=id%>" class="editForm hidden">
+          <div class="form-group">
+            <label for="itemName">Name</label>
+            <input type="text" class="form-control itemName" value="<%=name%>">
+          </div>
+          <div class="form-group">
+            <label for="itemPrice">Price</label>
+            <input type="text" class="form-control itemPrice" value="<%=price%>">
+          </div>
+          <div class="checkbox" <%= glutenFree ?  "checked" : '' %>>
+            <label>
+              <input type="checkbox" class="itemGF"> Gluten Free
+              
+            </label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" class="itemVeg" <%= vegetarian ?  "checked" : '' %>> Vegetarian
+            </label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" class="itemBreakfast" <%= breakfast ?  "checked" : '' %>> Breakfast
+            </label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" class="itemLunch" <%= lunch ?  "checked" : '' %>> Lunch
+            </label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" class="itemDinner" <%= dinner ?  "checked" : '' %>> Dinner
+            </label>
+          </div>
+          <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle itemType" id = "itemType<%=id%>" type="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+              <span class="selection">
+                 <% if (type==="app"){%>
+                   Appetizer
+                 <%} else if (type==="entree") {%>
+                   Entree
+                 <%} else if (type==="dessert") {%>
+                   Dessert
+                 <%} else if (type==="drink") {%>
+                   Drink
+                 <%}%>
+              </span>
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="itemType<%=id%>">
+              <li><a data-value="app">Appetizer</a></li>
+              <li><a data-value="drink">Drink</a></li>
+              <li><a data-value="entree">Entree</a></li>
+              <li><a data-value="dessert">Dessert</a></li>
+            </ul>
+          </div>
+          <button type="submit" class="btn btn-default submit">Submit</button>
+        </form>
       </div>
 
     </script>
@@ -37,20 +96,18 @@
             <li><a href="#">Entree</a></li>
             <li><a href="#">Dessert</a></li>
           </ul>
-      </div>
-<input type="checkbox" name="breakfast">breakfast
-<input type="checkbox" name="lunch">lunch
-<input type="checkbox" name="dinner">dinner
-<input type="checkbox" name="vegetarian">vegetarian
-<input type="checkbox" name="glutenfree">glutenfree<br>
-Name of Item:<br>
-<input type="text" name="name">
- <br>
- Price of Item:<br>
- <input type="text" name="price">
-
-
-</form>
+        </div>
+        <input type="checkbox" name="breakfast">breakfast
+        <input type="checkbox" name="lunch">lunch
+        <input type="checkbox" name="dinner">dinner
+        <input type="checkbox" name="vegetarian">vegetarian
+        <input type="checkbox" name="glutenfree">glutenfree<br>
+        Name of Item:<br>
+        <input type="text" name="name">
+         <br>
+         Price of Item:<br>
+         <input type="text" name="price">
+    </form>
 
     </header>
     <div class="container-fluid">
@@ -95,7 +152,7 @@ Name of Item:<br>
       </div>
     </div>
     <footer>
-      <span>Copyright 2015 The Iron Bar</span>
+      <h3>Copyright 2015 The Iron Bar</h3>
     </footer>
 
     <!-- bower components -->

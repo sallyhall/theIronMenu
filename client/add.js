@@ -1,13 +1,13 @@
 var add = {
   init: function (){
-    // body...
+
   },
   events: function () {
-    // body...
+
   },
   styling: function (){
 
-  }
+  },
   setMenuItem: function(){
     var newMenuItem = new MenuItem();
     newMenuItem.breakfast = breakfast;
@@ -23,7 +23,7 @@ var add = {
   addNewItem: function(newMenuItem){
             $.ajax({
               type: 'POST',
-              url: /add-item,
+              url: "/add-item",
               data: newMenuItem,
               success: function(data){
                 console.log("Success");

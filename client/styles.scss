@@ -16,7 +16,7 @@ header, footer{
   color: $lightGray;
   padding:10px;
   min-height: 10%;
-  h1{
+  h1,h3{
     text-align: center;
   }
 }
@@ -24,6 +24,15 @@ header, footer{
   min-height: 80%;
   padding-left: 0;
 }
+
+.hidden{
+  display: none;
+}
+
+
+  .checkbox{
+    display: inline;
+  }
 
 
 h1{
