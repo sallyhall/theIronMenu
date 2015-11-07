@@ -6,16 +6,9 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a7b25c5a-fc55-4305-a9cc-766349e36817" name="Default" comment="added ID to edit method">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/main.mv.db" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/main.trace.db" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test.mv.db" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test.trace.db" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../server.jar" afterPath="$PROJECT_DIR$/../server.jar" />
+    <list default="true" id="a7b25c5a-fc55-4305-a9cc-766349e36817" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/theironyard/Main.java" afterPath="$PROJECT_DIR$/src/com/theironyard/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/com/theironyard/MainTest.java" afterPath="$PROJECT_DIR$/src/test/com/theironyard/MainTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../client/index.html" afterPath="$PROJECT_DIR$/../client/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../main.mv.db" afterPath="$PROJECT_DIR$/../main.mv.db" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.mv.db" afterPath="$PROJECT_DIR$/main.mv.db" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="server.iws" />
@@ -41,8 +34,8 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/theironyard/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.55314535">
-              <caret line="191" column="24" selection-start-line="191" selection-start-column="24" selection-end-line="191" selection-end-column="24" />
+            <state vertical-scroll-proportion="0.7071583">
+              <caret line="81" column="9" selection-start-line="81" selection-start-column="9" selection-end-line="81" selection-end-column="9" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -537,7 +530,13 @@
       <option name="project" value="LOCAL" />
       <updated>1446917274411</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Fixed Edit Method">
+      <created>1446924519717</created>
+      <option name="number" value="00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1446924519717</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TodoView">
@@ -599,7 +598,8 @@
     <MESSAGE value="test push &amp; commit" />
     <MESSAGE value="old-timey filters" />
     <MESSAGE value="added ID to edit method" />
-    <option name="LAST_COMMIT_MESSAGE" value="added ID to edit method" />
+    <MESSAGE value="Fixed Edit Method" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed Edit Method" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -777,8 +777,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/theironyard/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.55314535">
-          <caret line="191" column="24" selection-start-line="191" selection-start-column="24" selection-end-line="191" selection-end-column="24" />
+        <state vertical-scroll-proportion="0.7071583">
+          <caret line="81" column="9" selection-start-line="81" selection-start-column="9" selection-end-line="81" selection-end-column="9" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

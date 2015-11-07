@@ -66,10 +66,24 @@ public class Main {
         return items;
     }
 
-    public static ArrayList<MenuItem> typeFilter(Connection conn, String type) throws SQLException {
+    static ArrayList<MenuItem> filterAll(Connection conn, String type, String breakfast, String lunch, String dinner, String vegetarian, String glutenFree, String priceRange) throws SQLException {
         ArrayList<MenuItem> types = new ArrayList<>();
-        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM menu WHERE type = ?");
-        stmt.setString(1, type);
+
+        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM menu WHERE type LIKE ? AND breakfast LIKE ?");
+        if (type == null) {
+            stmt.setString(1, "%");
+        }
+        else {
+            stmt.setString(1, type);
+        }
+
+        if (breakfast == null) {
+            stmt.setString(2, "%");
+        }
+        else {
+            stmt.setBoolean(2, Boolean.valueOf(breakfast));
+        }
+
         ResultSet results = stmt.executeQuery();
         while (results.next()) {
             MenuItem item = new MenuItem();
@@ -139,13 +153,11 @@ public class Main {
                 "/menu",
                 ((request, response) -> {
                     String type = request.queryParams("type");
+                    String breakfast = request.queryParams("breakfast");
                     ArrayList<MenuItem> items;
 
-                    if (type == null) {
-                        items = selectMenu(conn);
-                    } else {
-                        items = typeFilter(conn, type);
-                    }
+                    items = filterAll(conn, type, breakfast, null, null, null, null, null);
+
                     JsonSerializer serializer = new JsonSerializer();
                     String json = serializer.serialize(items);
                     return json;
