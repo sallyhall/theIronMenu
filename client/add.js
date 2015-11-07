@@ -1,26 +1,15 @@
 var add = {
   init: function (){
-
+    add.events();
   },
   events: function () {
-
-  },
-  styling: function (){
-
-  },
-  setMenuItem: function(){
-    var newMenuItem = new MenuItem();
-    newMenuItem.breakfast = breakfast;
-    newMenuItem.dinner=dinner;
-    newMenuItem.glutenFree=glutenFree;
-    newMenuItem.id=id;
-    newMenuItem.lunch=lunch;
-    newMenuItem.name=name;
-    newMenuItem.price=price;
-    newMenuItem.type=type;
-    newMenuItem.vegetarian=vegetarian;
-  },
-  addNewItem: function(newMenuItem){
+    $(".glyphicon-plus").on('click', function(event){
+        event.preventDefault();
+        $('.add-item-container').toggleClass('hidden');
+    });
+    $(".add-item-containersubmit").on("click",function (event) {
+      var newMenuItem = add.addMenuItemForm();
+      event.preventDefault();
             $.ajax({
               type: 'POST',
               url: "/add-item",
@@ -34,5 +23,43 @@ var add = {
                 console.log("Failure");
               }
             });
-  }
+
+    });
+  },
+  styling: function (){
+
+  },
+
+
+
+
+
+  addMenuItemForm: function () {
+    var itemForm = $("#addItem");
+    var addItem = new MenuItem();
+    addItem.breakfast=itemForm.find(".itemBreakfast")[0].checked;
+    addItem.dinner=itemForm.find(".itemDinner")[0].checked;
+    addItem.glutenFree=itemForm.find(".itemGF")[0].checked;
+    addItem.vegetarian=itemForm.find(".itemVeg")[0].checked;
+    addItem.lunch=itemForm.find(".itemLunch")[0].checked;
+    addItem.name=itemForm.find(".itemName").val();
+    addItem.price=itemForm.find(".itemPrice").val();
+    addItem.priceRange=Math.floor(addItem.price/10) +1;
+    addItem.type=itemForm.find(".selection").text().trim();
+    switch (addItem.type){
+      case "Appetizer":
+        addItem.type =  "app";
+        break;
+      case "Entree":
+        addItem.type =  "entree";
+        break;
+      case "Dessert":
+        addItem.type =  "dessert";
+        break;
+      case "Drink":
+        addItem.type =  "drink";
+        break;
+    }
+    return addItem;
+  },
 };

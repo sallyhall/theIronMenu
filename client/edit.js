@@ -12,7 +12,7 @@ var edit = {
       event.preventDefault();
       var $item = $(this).parent();
       var id = $item.attr("id").slice(-1);
-      var editedItem = edit.createItemFromEditForm(id)
+      var editedItem = edit.createItemFromEditForm(id);
       $.ajax({
         type: 'POST',
         url: '/edit-item',
@@ -27,7 +27,7 @@ var edit = {
       });
     });
     //thanks to http://stackoverflow.com/questions/13437446/how-to-display-selected-item-in-bootstrap-button-dropdown-title
-    $(".menu").on('click', '.dropdown-menu li a', function(event){
+    $(".dropdown-menu li a").on('click', function(event){
       event.preventDefault();
       $(this).parents(".dropdown").find(".selection").text($(this).text());
       $(this).parents(".dropdown").find(".selection").val($(this).text());
@@ -40,12 +40,12 @@ var edit = {
     var itemForm = $("#editID"+id);
     var editedItem = {};
     editedItem.id=id;
-    editedItem.name=itemForm.find(".itemName").val();;
+    editedItem.name=itemForm.find(".itemName").val();
+    editedItem.price=itemForm.find(".itemPrice").val();
     editedItem.type=itemForm.find(".selection").text().trim();
-    // editedItem.breakfast=itemForm.find(".itemBreakfast")[0].checked;
+    editedItem.breakfast=itemForm.find(".itemBreakfast")[0].checked;
     editedItem.lunch=itemForm.find(".itemLunch")[0].checked;
     editedItem.dinner=itemForm.find(".itemDinner")[0].checked;
-    editedItem.price=itemForm.find(".itemPrice").val();;
     editedItem.vegetarian=itemForm.find(".itemVeg")[0].checked;
     editedItem.glutenFree=itemForm.find(".itemGF")[0].checked;
     editedItem.priceRange=Math.floor(editedItem.price/10) +1;
@@ -62,7 +62,7 @@ var edit = {
       case "Drink":
         editedItem.type =  "drink";
         break;
-    };
+    }
     return editedItem;
   }
-}
+};
