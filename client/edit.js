@@ -38,17 +38,17 @@ var edit = {
   },
   createItemFromEditForm: function (id) {
     var itemForm = $("#editID"+id);
-    var editedItem = new MenuItem();
-    editedItem.breakfast=itemForm.find(".itemBreakfast")[0].checked;
-    editedItem.dinner=itemForm.find(".itemDinner")[0].checked;
-    editedItem.glutenFree=itemForm.find(".itemGF")[0].checked;
-    editedItem.vegetarian=itemForm.find(".itemVeg")[0].checked;
+    var editedItem = {};
     editedItem.id=id;
-    editedItem.lunch=itemForm.find(".itemLunch")[0].checked;
     editedItem.name=itemForm.find(".itemName").val();
     editedItem.price=itemForm.find(".itemPrice").val();
-    editedItem.priceRange=Math.floor(editedItem.price/10) +1;
     editedItem.type=itemForm.find(".selection").text().trim();
+    editedItem.breakfast=itemForm.find(".itemBreakfast")[0].checked;
+    editedItem.lunch=itemForm.find(".itemLunch")[0].checked;
+    editedItem.dinner=itemForm.find(".itemDinner")[0].checked;
+    editedItem.vegetarian=itemForm.find(".itemVeg")[0].checked;
+    editedItem.glutenFree=itemForm.find(".itemGF")[0].checked;
+    editedItem.priceRange=Math.floor(editedItem.price/10) +1;
     switch (editedItem.type){
       case "Appetizer":
         editedItem.type =  "app";
