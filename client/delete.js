@@ -1,6 +1,5 @@
 var deleteItem  = {
   init: function (){
-    deleteItem.styling();
     deleteItem.events();
   },
   events: function () {
@@ -21,7 +20,4 @@ var deleteItem  = {
         });
     });
   },
-  styling: function (){
-
-  }
 };
