@@ -20,7 +20,7 @@ public class Main {
         stmt.setDouble(6, price);
         stmt.setBoolean(7, vegetarian);
         stmt.setBoolean(8, glutenFree);
-        stmt.setInt(9, priceRange);
+         stmt.setInt(9, priceRange);
         stmt.execute();
     }
 
@@ -69,7 +69,7 @@ public class Main {
     static ArrayList<MenuItem> filterAll(Connection conn, String type, String breakfast, String lunch, String dinner, String vegetarian, String glutenFree, String priceRange) throws SQLException {
         ArrayList<MenuItem> types = new ArrayList<>();
 
-        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM menu WHERE type LIKE ? AND breakfast LIKE ?");
+        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM menu WHERE type LIKE ? AND breakfast LIKE ? AND lunch LIKE ? AND dinner LIKE ? AND vegetarian LIKE ? AND glutenFree LIKE ? AND priceRange LIKE ?");
         if (type == null) {
             stmt.setString(1, "%");
         }
@@ -83,20 +83,50 @@ public class Main {
         else {
             stmt.setBoolean(2, Boolean.valueOf(breakfast));
         }
+        if (lunch == null){
+            stmt.setString(3, "%");
+        }
+        else {
+            stmt.setBoolean(3,Boolean.valueOf(lunch));
+        }
+        if (dinner == null){
+            stmt.setString(4, "%");
+        }
+        else {
+            stmt.setBoolean(4,Boolean.valueOf(dinner));
+        }
+        if (vegetarian == null) {
+            stmt.setString(5, "%");
+        }
+        else {
+            stmt.setBoolean(5,Boolean.valueOf(vegetarian));
+        }
+        if (glutenFree == null){
+            stmt.setString(6,"%");
+        }
+        else {
+            stmt.setBoolean(6, Boolean.valueOf(glutenFree));
+        }
+        if (priceRange == null){
+            stmt.setString(7, "%");
+        }
+        else {
+            stmt.setInt(7, Integer.valueOf(priceRange));
+        }
 
         ResultSet results = stmt.executeQuery();
         while (results.next()) {
             MenuItem item = new MenuItem();
             item.id = results.getInt("id");
             item.name = results.getString("name");
-            item.type = results.getString("type"); // filter finished
-            item.breakfast = results.getBoolean("breakfast"); // needs boolean filter
-            item.lunch = results.getBoolean("lunch");// needs boolean filter
-            item.dinner = results.getBoolean("dinner");// needs boolean filter
+            item.type = results.getString("type");
+            item.breakfast = results.getBoolean("breakfast");
+            item.lunch = results.getBoolean("lunch");
+            item.dinner = results.getBoolean("dinner");
             item.price = results.getDouble("price");
-            item.vegetarian = results.getBoolean("vegetarian");// needs boolean filter
-            item.glutenFree = results.getBoolean("glutenFree");// needs boolean filter
-            item.priceRange = results.getInt("priceRange"); // needs int filter....?
+            item.vegetarian = results.getBoolean("vegetarian");
+            item.glutenFree = results.getBoolean("glutenFree");
+            item.priceRange = results.getInt("priceRange");
             types.add(item);
         }
         return types;
@@ -127,7 +157,7 @@ public class Main {
         Connection conn = DriverManager.getConnection("jdbc:h2:./main");
         createTable(conn);
 
-        Spark.externalStaticFileLocation("../client");
+        Spark.externalStaticFileLocation("client");
         Spark.init();
 
         if (selectMenu(conn).size() ==0) {
@@ -135,8 +165,8 @@ public class Main {
             Main.insertMenuItem(conn,  "Soup", "app", false, true, true, 12.00, true, true, 1);
             Main.insertMenuItem(conn, "Nachos", "app", false, true, true, 20.00, true, false, 2);
             Main.insertMenuItem(conn,  "Chicken Wings", "entree", false, true, true, 15.00, true, true, 3);
-            Main.insertMenuItem(conn,  "Cheesecake", "dessert", true, true, true, 10.00, true, false, 1);
-            Main.insertMenuItem(conn,  "Tofu Stir Fry", "entree", false, true, true, 22.00, true, true, 2);
+            Main.insertMenuItem(conn, "Cheesecake", "dessert", true, true, true, 10.00, true, false, 1);
+            Main.insertMenuItem(conn, "Tofu Stir Fry", "entree", false, true, true, 22.00, true, true, 2);
             Main.insertMenuItem(conn, "Eggs Benedict", "entree", true, false, false, 13.50, true, false, 2);
             Main.insertMenuItem(conn, "Chocolate Lava Cake", "dessert", false, true, true, 9.00, true, true, 3);
             Main.insertMenuItem(conn, "Fruit Cup", "app", false, true, true, 4.00, true, true, 1);
@@ -154,9 +184,14 @@ public class Main {
                 ((request, response) -> {
                     String type = request.queryParams("type");
                     String breakfast = request.queryParams("breakfast");
+                    String lunch = request.queryParams("lunch");
+                    String dinner = request.queryParams("dinner");
+                    String vegetarian = request.queryParams("vegetarian");
+                    String glutenFree = request.queryParams("glutenFree");
+                    String priceRange = request.queryParams("priceRange");
                     ArrayList<MenuItem> items;
 
-                    items = filterAll(conn, type, breakfast, null, null, null, null, null);
+                    items = filterAll(conn, type, breakfast, lunch, dinner, vegetarian, glutenFree, priceRange);
 
                     JsonSerializer serializer = new JsonSerializer();
                     String json = serializer.serialize(items);
@@ -167,9 +202,10 @@ public class Main {
         Spark.post(
                 "/add-item",
                 ((request, response) -> {
+
                     String name = request.queryParams("name");
                     String type = request.queryParams("type");
-                    Boolean isBreakfast = Boolean.valueOf(request.queryParams("breakfast"));
+                    boolean isBreakfast = Boolean.valueOf(request.queryParams("breakfast"));
                     boolean isLunch = Boolean.valueOf(request.queryParams("lunch"));
                     boolean isDinner = Boolean.valueOf(request.queryParams("dinner"));
                     double price = Double.valueOf(request.queryParams("price"));
@@ -195,11 +231,11 @@ public class Main {
                     boolean isDinner = Boolean.valueOf(request.queryParams("dinner"));
                     double price = Double.valueOf(request.queryParams("price"));
                     boolean isVegetarian = Boolean.valueOf(request.queryParams("vegetarian"));
-                    boolean isGlutenFree = Boolean.valueOf(request.queryParams("glutenFree"));
+                    boolean isglutenFree = Boolean.valueOf(request.queryParams("glutenFree"));
                     int priceRange = Integer.valueOf(request.queryParams("priceRange"));
                     try {
                         int idNum = Integer.valueOf(id);
-                        editItem(conn, idNum, name, type, isBreakfast, isLunch, isDinner, price, isVegetarian, isGlutenFree, priceRange);
+                        editItem(conn, idNum, name, type, isBreakfast, isLunch, isDinner, price, isVegetarian, isglutenFree, priceRange);
                     } catch (Exception e) {
 
                     }
@@ -221,6 +257,5 @@ public class Main {
                     return "";
                 })
         );
-
     }
 }
