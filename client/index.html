@@ -24,15 +24,19 @@
             <label for="itemPrice">Price</label>
             <input type="text" class="form-control itemPrice" value="<%=price%>">
           </div>
-          <div class="checkbox" <%= glutenFree ?  "checked" : '' %>>
+          <div class="checkbox" >
             <label>
-              <input type="checkbox" class="itemGF"> Gluten Free
-
+              <input type="checkbox" class="itemGF" <%= glutenFree ?  "checked" : '' %>> Gluten Free
             </label>
           </div>
           <div class="checkbox">
             <label>
               <input type="checkbox" class="itemVeg" <% vegetarian ?  "checked" : '' %>> Vegetarian
+            </label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" class="itemBreakfast" <% breakfast ?  "checked" : '' %>> Breakfast
             </label>
           </div>
           <div class="checkbox">
@@ -47,6 +51,7 @@
           </div>
           <div class="dropdown">
             <button class="btn btn-default dropdown-toggle itemType" id = "itemType<%=id%>" type="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+
               <span class="selection">
                  <% if (type==="app"){%>
                    Appetizer
@@ -67,7 +72,7 @@
               <li><a data-value="dessert">Dessert</a></li>
             </ul>
           </div>
-          <button type="submit" class="btn btn-default submit">Submit</button>
+          <button type="submit" class="btn btn-default add-item-containersubmit">Submit</button>
         </form>
       </div>
 
@@ -78,32 +83,76 @@
   <body>
     <header>
       <h1>The Iron Bar Menu</h1>
-      <span class="glyphicon glyphicon-plus admin" aria-hidden="true"></span>
-      <form action="add" class="addContainer">
-        <div class="dropdown">
-          <button class="btn btn-default dropdown-toggle" type="button" id="addMenuMeal" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-            Dropdown
-            <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="addMenuMeal">
-            <li><a href="#">Appetizer</a></li>
-            <li><a href="#">Drink</a></li>
-            <li><a href="#">Entree</a></li>
-            <li><a href="#">Dessert</a></li>
-          </ul>
-        </div>
-        <input type="checkbox" name="breakfast">breakfast
-        <input type="checkbox" name="lunch">lunch
-        <input type="checkbox" name="dinner">dinner
-        <input type="checkbox" name="vegetarian">vegetarian
-        <input type="checkbox" name="glutenfree">glutenfree<br>
-        Name of Item:<br>
-        <input type="text" name="name">
-         <br>
-         Price of Item:<br>
-         <input type="text" name="price">
-    </form>
 
+      <!-- <section class="signIn">
+      <div class="col-md-12 noPadding initial-Sign-In container-fluid">
+        <form action="action_page.php"> -->
+  <!-- User name:<br>
+  <input type="text" name="username" value="username">
+  <br>
+  Password:<br>
+  <input type="text" name="password" value="password">
+  <br><br>
+  <input type="submit" value="Submit">
+</form>
+      </div>
+    </section> -->
+
+      <span class="glyphicon glyphicon-plus admin" aria-hidden="true">Add Menu Item</span>
+      <div class="add-item-container hidden">
+        <form id="addItem" class="addForm">
+          <div class="form-group">
+            <label for="itemName">Name</label>
+            <input type="text" class="form-control itemName" >
+          </div>
+          <div class="form-group">
+            <label for="itemPrice">Price</label>
+            <input type="text" class="form-control itemPrice">
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" class="itemGF"> Gluten Free
+
+            </label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" class="itemVeg"> Vegetarian
+            </label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" class="itemBreakfast"> Breakfast
+            </label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" class="itemLunch"> Lunch
+            </label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" class="itemDinner"> Dinner
+            </label>
+          </div>
+          <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle itemType" id = "itemType" type="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+
+              <span class="selection">
+                 course
+              </span>
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="itemType">
+              <li><a data-value="app">Appetizer</a></li>
+              <li><a data-value="drink">Drink</a></li>
+              <li><a data-value="entree">Entree</a></li>
+              <li><a data-value="dessert">Dessert</a></li>
+            </ul>
+          </div>
+          <button type="submit" class="btn btn-default add-item-containersubmit">Submit</button>
+        </form>
+      </div>
     </header>
     <div class="container-fluid">
       <aside class="filters col-md-3">
@@ -125,7 +174,7 @@
             <span class="caret"></span>
           </button>
           <ul class="dropdown-menu" aria-labelledby="filterMenuType">
-            <li><a href="#">Appetizers</a></li>
+            <li><a href="#">App</a></li>
             <li><a href="#">Entrees</a></li>
             <li><a href="#">Desserts</a></li>
             <li><a href="#">Drinks</a></li>
