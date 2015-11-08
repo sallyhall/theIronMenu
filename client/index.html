@@ -54,15 +54,7 @@
             <button class="btn btn-default dropdown-toggle itemType" id = "itemType<%=id%>" type="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 
               <span class="selection">
-                 <% if (type==="app"){%>
-                   App
-                 <%} else if (type==="entree") {%>
-                   Entree
-                 <%} else if (type==="dessert") {%>
-                   Dessert
-                 <%} else if (type==="drink") {%>
-                   Drink
-                 <%}%>
+                 <%= type%>
               </span>
               <span class="caret"></span>
             </button>
@@ -146,39 +138,40 @@
       <aside class="filters col-md-3">
         <h3>Narrow Your Choices</h3>
         <div class="dropdown">
-          <button class="btn btn-default dropdown-toggle" type="button" id="filterMenuMeal" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          <button class="btn btn-default dropdown-toggle" type="button" id="filterMenumeal" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
             <span class="selection">Meal</span>
             <span class="caret"></span>
           </button>
-          <ul class="dropdown-menu" aria-labelledby="filterMenuMeal">
+          <ul class="dropdown-menu" aria-labelledby="filterMenumeal">
             <li><a href="#">Breakfast</a></li>
             <li><a href="#">Lunch</a></li>
             <li><a href="#">Dinner</a></li>
           </ul>
         </div>
         <div class="dropdown">
-          <button class="btn btn-default dropdown-toggle" type="button" id="filterMenuType" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          <button class="btn btn-default dropdown-toggle" type="button" id="filterMenutype" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
             <span class="selection">Course</span>
             <span class="caret"></span>
           </button>
-          <ul class="dropdown-menu" aria-labelledby="filterMenuType">
+          <ul class="dropdown-menu" aria-labelledby="filterMenutype">
             <li><a href="#">App</a></li>
-            <li><a href="#">Entrees</a></li>
-            <li><a href="#">Desserts</a></li>
-            <li><a href="#">Drinks</a></li>
+            <li><a href="#">Entree</a></li>
+            <li><a href="#">Dessert</a></li>
+            <li><a href="#">Drink</a></li>
           </ul>
         </div>
-        <div class="checkbox" id="filterGlutenFree">
+        <div class="checkbox" id="filterglutenFree">
           <label>
             <input type="checkbox"> Gluten Free
           </label>
         </div>
-        <div class="checkbox" id="filterVegetarian">
+        <div class="checkbox" id="filtervegetarian">
           <label>
             <input type="checkbox"> Vegetarian
           </label>
         </div>
-        <button type="button" id="resetFilters" class="hidden btn btn-default">Reset Filters</button>
+        <button type="button" id="submitFilters" class="btn btn-default">Submit Filters</button>
+        <button type="button" id="resetFilters" class="btn btn-default">Reset Filters</button>
       </aside>
       <div class="menu col-md-9">
 
