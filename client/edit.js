@@ -11,7 +11,7 @@ var edit = {
         $(".menu").on("click", ".submit", function(event) {
             event.preventDefault();
             var $item = $(this).parent();
-            var id = $item.attr("id").slice(-1);
+            var id = $item.attr("id").slice(6);
             var editedItem = edit.createItemFromEditForm(id);
             $.ajax({
                 type: 'POST',
