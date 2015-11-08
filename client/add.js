@@ -2,11 +2,9 @@ var add = {
   init: function (){
     add.events();
   },
-  events: function () {
-    $(".glyphicon-plus").on('click', function(event){
-        event.preventDefault();
-        $('.add-item-container').toggleClass('hidden');
-    });
+
+
+    events: function () {
     $(".add-item-containersubmit").on("click",function (event) {
       var newMenuItem = add.addMenuItemForm();
       event.preventDefault();
@@ -23,17 +21,10 @@ var add = {
                 console.log("Failure");
               }
             });
-
     });
   },
   styling: function (){
-
   },
-
-
-
-
-
   addMenuItemForm: function () {
     var itemForm = $("#addItem");
     var addItem = new MenuItem();

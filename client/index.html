@@ -14,8 +14,8 @@
         <p>
           $<%=price%>
         </p>
-        <span class="glyphicon glyphicon-pencil admin" aria-hidden="true"></span>
-        <span class="glyphicon glyphicon-trash admin" aria-hidden="true"></span>
+        <span class="glyphicon glyphicon-pencil admin hidden" aria-hidden="true"></span>
+        <span class="glyphicon glyphicon-trash admin hidden" aria-hidden="true"></span>
         <form id="editID<%=id%>" class="editForm hidden">
           <div class="form-group">
             <label for="itemName">Name</label>
@@ -77,8 +77,23 @@
     <header>
       <h1>The Iron Bar Menu</h1>
       <img src="theironbar.png" alt="" />
-      <span class="glyphicon glyphicon-plus admin" aria-hidden="true"></span>
-      <span>Add Menu Item</span>
+      <!-- the-Log-in is Below -->
+<p class="admin-log-in">Admin log-in</p>
+      <section class="signIn hidden">
+      <div class="col-md-12 noPadding initial-Sign-In container-fluid">
+        <form >
+  User name:<br>
+  <input type="text" id="username" placeholder="username">
+  <br>
+  Password:<br>
+  <input type="text" id="password" placeholder="password">
+  <br><br>
+  <input type="submit" value="Submit" class="loginSubmit">
+</form>
+      </div>
+    </section>
+<!-- //the-Log-in is above -->
+      <span class="glyphicon glyphicon-plus admin hidden" aria-hidden="true">Add Menu Item</span>
       <div class="add-item-container hidden">
         <form id="addItem" class="addForm">
           <div class="form-group">
@@ -192,6 +207,7 @@
     <script src="add.js" charset="utf-8"></script>
     <script src="filter.js" charset="utf-8"></script>
     <script src="app.js" charset="utf-8"></script>
+    <script src="signin.js" charset="utf-8"></script>
 
   </body>
 </html>

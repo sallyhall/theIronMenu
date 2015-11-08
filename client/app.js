@@ -5,6 +5,7 @@ var menuPage = {
     add.init();
     edit.init();
     filter.init();
+    signin.init();
   },
   events: function () {
 
