@@ -1,7 +1,6 @@
 var filter = {
   init: function () {
     filter.events();
-    filter.styling();
   },
   events: function () {
     $("aside .dropdown-menu li a").on("click", function(event){
@@ -29,6 +28,12 @@ var filter = {
         }
         filter.requestString += "type="+$("#filterMenutype").find(".selection").val().toLowerCase();
       }
+      if ($("#filterMenuPriceRange").find(".selection").text()!="Price Range"){
+        if (filter.requestString.length>0){
+          filter.requestString+="&";
+        }
+        filter.requestString += "priceRange="+$("#filterMenuPriceRange").find(".selection").val().length;
+      }
       if ($("#filtervegetarian").find("input")[0].checked){
         if (filter.requestString.length>0){
           filter.requestString+="&";
@@ -44,9 +49,6 @@ var filter = {
       filter.getFilteredMenuItems();
       filter.requestString="";
     });
-
-  },
-  styling: function () {
 
   },
   requestString:"",

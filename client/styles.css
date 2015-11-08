@@ -17,6 +17,12 @@ header, footer {
     display: block;
     margin: 5px auto;
     width: 150px; }
+  header input, footer input {
+    display: inline-block;
+    color: #46494c; }
+
+.larger {
+  height: 350px; }
 
 .container-fluid {
   padding-left: 0; }
@@ -69,3 +75,7 @@ aside .dropdown, aside .checkbox, aside .btn, aside h3 {
   .menuItem h3 {
     width: 300px;
     display: inline-block; }
+  .menuItem img {
+    width: 40px;
+    margin-right: 10px;
+    margin-top: -10px; }

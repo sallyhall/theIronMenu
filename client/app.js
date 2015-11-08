@@ -7,15 +7,9 @@ var menuPage = {
     filter.init();
     signin.init();
   },
-  events: function () {
-
-  },
-  styling: function (){
-
-  },
-
   menuItemTemplate: _.template($("#menuItemTmpl").html()),
   currentDataSet: {},
+  admin:false
 };
 
 var MenuItem = function(breakfast,dinner,glutenFree,id,lunch,name,price,type,vegetarian){
