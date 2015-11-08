@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>The Iron Bar</title>
+    <link href='https://fonts.googleapis.com/css?family=Arvo' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" media="screen" title="no title" charset="utf-8">
     <link rel="stylesheet" href="styles.css" media="screen" title="no title" charset="utf-8">
 
@@ -11,7 +12,7 @@
       <div class="menuItem" id="<%=id%>">
         <h3><%=name%></h3>
         <p>
-          <%=price%>
+          $<%=price%>
         </p>
         <span class="glyphicon glyphicon-pencil admin hidden" aria-hidden="true"></span>
         <span class="glyphicon glyphicon-trash admin hidden" aria-hidden="true"></span>
@@ -53,26 +54,18 @@
             <button class="btn btn-default dropdown-toggle itemType" id = "itemType<%=id%>" type="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 
               <span class="selection">
-                 <% if (type==="app"){%>
-                   Appetizer
-                 <%} else if (type==="entree") {%>
-                   Entree
-                 <%} else if (type==="dessert") {%>
-                   Dessert
-                 <%} else if (type==="drink") {%>
-                   Drink
-                 <%}%>
+                 <%= type%>
               </span>
               <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="itemType<%=id%>">
-              <li><a data-value="app">Appetizer</a></li>
+              <li><a data-value="app">App</a></li>
               <li><a data-value="drink">Drink</a></li>
               <li><a data-value="entree">Entree</a></li>
               <li><a data-value="dessert">Dessert</a></li>
             </ul>
           </div>
-          <button type="submit" class="btn btn-default add-item-containersubmit">Submit</button>
+          <button class="submit btn btn-default add-item-containersubmit">Submit</button>
         </form>
       </div>
 
@@ -83,7 +76,7 @@
   <body>
     <header>
       <h1>The Iron Bar Menu</h1>
-
+      <img src="theironbar.png" alt="" />
       <!-- the-Log-in is Below -->
 <p class="admin-log-in">Admin log-in</p>
       <section class="signIn hidden">
@@ -141,18 +134,18 @@
             <button class="btn btn-default dropdown-toggle itemType" id = "itemType" type="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 
               <span class="selection">
-                 course
+                 Course
               </span>
               <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="itemType">
-              <li><a data-value="app">Appetizer</a></li>
+              <li><a data-value="app">App</a></li>
               <li><a data-value="drink">Drink</a></li>
               <li><a data-value="entree">Entree</a></li>
               <li><a data-value="dessert">Dessert</a></li>
             </ul>
           </div>
-          <button type="submit" class="btn btn-default add-item-containersubmit">Submit</button>
+          <button class="submit btn btn-default add-item-containersubmit">Submit</button>
         </form>
       </div>
     </header>
@@ -160,39 +153,40 @@
       <aside class="filters col-md-3">
         <h3>Narrow Your Choices</h3>
         <div class="dropdown">
-          <button class="btn btn-default dropdown-toggle" type="button" id="filterMenuMeal" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          <button class="btn btn-default dropdown-toggle" type="button" id="filterMenumeal" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
             <span class="selection">Meal</span>
             <span class="caret"></span>
           </button>
-          <ul class="dropdown-menu" aria-labelledby="filterMenuMeal">
+          <ul class="dropdown-menu" aria-labelledby="filterMenumeal">
             <li><a href="#">Breakfast</a></li>
             <li><a href="#">Lunch</a></li>
             <li><a href="#">Dinner</a></li>
           </ul>
         </div>
         <div class="dropdown">
-          <button class="btn btn-default dropdown-toggle" type="button" id="filterMenuType" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          <button class="btn btn-default dropdown-toggle" type="button" id="filterMenutype" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
             <span class="selection">Course</span>
             <span class="caret"></span>
           </button>
-          <ul class="dropdown-menu" aria-labelledby="filterMenuType">
+          <ul class="dropdown-menu" aria-labelledby="filterMenutype">
             <li><a href="#">App</a></li>
-            <li><a href="#">Entrees</a></li>
-            <li><a href="#">Desserts</a></li>
-            <li><a href="#">Drinks</a></li>
-          </ul>
+            <li><a href="#">Entree</a></li>
+            <li><a href="#">Dessert</a></li>
+            <li><a href="#">Drink</a></li>
+    </ul>
         </div>
-        <div class="checkbox" id="filterGlutenFree">
+        <div class="checkbox" id="filterglutenFree">
           <label>
             <input type="checkbox"> Gluten Free
           </label>
         </div>
-        <div class="checkbox" id="filterVegetarian">
+        <div class="checkbox" id="filtervegetarian">
           <label>
             <input type="checkbox"> Vegetarian
           </label>
         </div>
-        <button type="button" id="resetFilters" class="hidden btn btn-default">Reset Filters</button>
+        <button type="button" id="submitFilters" class="btn btn-default">Submit Filters</button>
+        <button type="button" id="resetFilters" class="btn btn-default">Reset Filters</button>
       </aside>
       <div class="menu col-md-9">
 

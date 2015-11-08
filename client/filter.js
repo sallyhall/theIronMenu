@@ -7,44 +7,59 @@ var filter = {
     $("aside .dropdown-menu li a").on("click", function(event){
       event.preventDefault();
       $(this).parents(".dropdown").find(".selection").text($(this).text());
-      $(this).parents("div").siblings("div").addClass("hidden");
-      $("#resetFilters").removeClass("hidden");
-      filter.category=$(this).parents(".dropdown").find("button").attr("id").slice(10).toLowerCase();
-      filter.value=$(this).text().toLowerCase();
-      filter.getFilteredItems(filter.category,filter.value);
-    });
-    $("aside input").on("click", function (event) {
-      $(this).parents("div").siblings("div").addClass("hidden");
-      $("#resetFilters").removeClass("hidden");
-      filter.category=$(this).parents("div").attr("id").slice(6).toLowerCase();
-      filter.value=true;
-      filter.getFilteredMenuItems(filter.category,filter.value);
     });
     $("#resetFilters").on("click",function (event) {
       event.preventDefault();
-      $("#resetFilters").addClass("hidden");
-      $(this).siblings("div").removeClass("hidden");
+      filter.requestString="";
       _.each($(this).siblings("div").find("input"),function(box){
         box.checked=false;
       });
-      $(this).siblings(".dropdown").find("#filterMenuType").find(".selection").text("Course");
-      $(this).siblings(".dropdown").find("#filterMenuMeal").find(".selection").text("Meal");
+      $(this).siblings(".dropdown").find("#filterMenutype").find(".selection").text("Course");
+      $(this).siblings(".dropdown").find("#filterMenumeal").find(".selection").text("Meal");
       display.getAllMenuItems();
     });
+    $("#submitFilters").on("click", function (event) {
+      event.preventDefault();
+      if ($("#filterMenumeal").find(".selection").text()!="Meal"){
+        filter.requestString += $("#filterMenumeal").find(".selection").val().toLowerCase()+"=true";
+      }
+      if ($("#filterMenutype").find(".selection").text()!="Course"){
+        if (filter.requestString.length>0){
+          filter.requestString+="&";
+        }
+        filter.requestString += "type="+$("#filterMenutype").find(".selection").val().toLowerCase();
+      }
+      if ($("#filtervegetarian").find("input")[0].checked){
+        if (filter.requestString.length>0){
+          filter.requestString+="&";
+        }
+        filter.requestString+="vegetarian=true";
+      }
+      if ($("#filterglutenFree").find("input")[0].checked){
+        if (filter.requestString.length>0){
+          filter.requestString+="&";
+        }
+        filter.requestString+="glutenFree=true";
+      }
+      filter.getFilteredMenuItems();
+      filter.requestString="";
+    });
+
   },
   styling: function () {
 
   },
-  category:"",
-  value:"",
-  getFilteredMenuItems: function (category,value) {
+  requestString:"",
+
+  getFilteredMenuItems: function () {
     $.ajax({
       type: 'GET',
-      url: '/filter-item',
-      data: {category:value},
+      url: '/menu',
+      data: filter.requestString,
       success: function(data) {
         console.log("filtered");
-        menuPage.currentDataSet=data;
+        $(".menu").html("");
+        menuPage.currentDataSet=JSON.parse(data);
         display.putMenuItems();
       },
       failure: function(data) {

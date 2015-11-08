@@ -157,7 +157,7 @@ public class Main {
         Connection conn = DriverManager.getConnection("jdbc:h2:./main");
         createTable(conn);
 
-        Spark.externalStaticFileLocation("../client");
+        Spark.externalStaticFileLocation("client");
         Spark.init();
 
         if (selectMenu(conn).size() ==0) {
@@ -202,9 +202,10 @@ public class Main {
         Spark.post(
                 "/add-item",
                 ((request, response) -> {
+
                     String name = request.queryParams("name");
                     String type = request.queryParams("type");
-                    Boolean isBreakfast = Boolean.valueOf(request.queryParams("breakfast"));
+                    boolean isBreakfast = Boolean.valueOf(request.queryParams("breakfast"));
                     boolean isLunch = Boolean.valueOf(request.queryParams("lunch"));
                     boolean isDinner = Boolean.valueOf(request.queryParams("dinner"));
                     double price = Double.valueOf(request.queryParams("price"));
@@ -230,11 +231,11 @@ public class Main {
                     boolean isDinner = Boolean.valueOf(request.queryParams("dinner"));
                     double price = Double.valueOf(request.queryParams("price"));
                     boolean isVegetarian = Boolean.valueOf(request.queryParams("vegetarian"));
-                    boolean isGlutenFree = Boolean.valueOf(request.queryParams("glutenFree"));
+                    boolean isglutenFree = Boolean.valueOf(request.queryParams("glutenFree"));
                     int priceRange = Integer.valueOf(request.queryParams("priceRange"));
                     try {
                         int idNum = Integer.valueOf(id);
-                        editItem(conn, idNum, name, type, isBreakfast, isLunch, isDinner, price, isVegetarian, isGlutenFree, priceRange);
+                        editItem(conn, idNum, name, type, isBreakfast, isLunch, isDinner, price, isVegetarian, isglutenFree, priceRange);
                     } catch (Exception e) {
 
                     }
@@ -256,6 +257,5 @@ public class Main {
                     return "";
                 })
         );
-
     }
 }
