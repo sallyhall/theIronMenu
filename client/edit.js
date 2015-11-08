@@ -12,7 +12,7 @@ var edit = {
       event.preventDefault();
       var $item = $(this).parent();
       var id = $item.attr("id").slice(-1);
-      var editedItem = edit.createItemFromEditForm(id)
+      var editedItem = edit.createItemFromEditForm(id);
       console.log(editedItem);
       $.ajax({
         type: 'POST',
