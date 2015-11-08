@@ -2,6 +2,7 @@ package com.theironyard;
 
 import org.junit.Test;
 
+import java.awt.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -45,5 +46,15 @@ public class MainTest {
         endConnection(conn);
 
         assertTrue(item == null);
+    }
+
+    @Test
+    public  void testEdit() throws SQLException {
+        Connection conn = startConnection();
+        Main.insertMenuItem(conn, "Steak","entree", true, true, true, 25.00, false, false, 2);
+        Main.editItem(conn,1, "Salad", "app", false, true, true, 10.00, true, true, 1);
+        MenuItem item = Main.selectMenuItem(conn, 1);
+        endConnection(conn);
+        assertTrue(item.type == "app");
     }
 }
