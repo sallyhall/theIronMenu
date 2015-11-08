@@ -45,21 +45,7 @@ var add = {
     addItem.name=itemForm.find(".itemName").val();
     addItem.price=itemForm.find(".itemPrice").val();
     addItem.priceRange=Math.floor(addItem.price/10) +1;
-    addItem.type=itemForm.find(".selection").text().trim();
-    switch (addItem.type){
-      case "Appetizer":
-        addItem.type =  "app";
-        break;
-      case "Entree":
-        addItem.type =  "entree";
-        break;
-      case "Dessert":
-        addItem.type =  "dessert";
-        break;
-      case "Drink":
-        addItem.type =  "drink";
-        break;
-    }
+    addItem.type=itemForm.find(".selection").text().trim().toLowerCase();
     return addItem;
   },
 };

@@ -43,27 +43,13 @@ var edit = {
     editedItem.id=id;
     editedItem.name=itemForm.find(".itemName").val();
     editedItem.price=itemForm.find(".itemPrice").val();
-    editedItem.type=itemForm.find(".selection").text().trim();
+    editedItem.type=itemForm.find(".selection").text().trim().toLowerCase();
     editedItem.breakfast=itemForm.find(".itemBreakfast")[0].checked;
     editedItem.lunch=itemForm.find(".itemLunch")[0].checked;
     editedItem.dinner=itemForm.find(".itemDinner")[0].checked;
     editedItem.vegetarian=itemForm.find(".itemVeg")[0].checked;
     editedItem.glutenFree=itemForm.find(".itemGF")[0].checked;
     editedItem.priceRange=Math.floor(editedItem.price/10) +1;
-    switch (editedItem.type){
-      case "Appetizer":
-        editedItem.type =  "app";
-        break;
-      case "Entree":
-        editedItem.type =  "entree";
-        break;
-      case "Dessert":
-        editedItem.type =  "dessert";
-        break;
-      case "Drink":
-        editedItem.type =  "drink";
-        break;
-    }
     return editedItem;
   }
 };
