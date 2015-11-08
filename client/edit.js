@@ -35,7 +35,7 @@ var edit = {
             });
         });
         //thanks to http://stackoverflow.com/questions/13437446/how-to-display-selected-item-in-bootstrap-button-dropdown-title
-        $(".dropdown-menu li a").on('click', function(event) {
+        $(".menu").on('click', ".dropdown-menu li a", function(event) {
             event.preventDefault();
             $(this).parents(".dropdown").find(".selection").text(
                 $(this).text());
