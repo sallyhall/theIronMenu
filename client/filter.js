@@ -20,19 +20,19 @@ var filter = {
     $("#submitFilters").on("click", function (event) {
       event.preventDefault();
       if ($("#filterMenumeal").find(".selection").text()!="Meal"){
-        filter.requestString += $("#filterMenumeal").find(".selection").val().toLowerCase()+"=true";
+        filter.requestString += $("#filterMenumeal").find(".selection").text().toLowerCase()+"=true";
       }
       if ($("#filterMenutype").find(".selection").text()!="Course"){
         if (filter.requestString.length>0){
           filter.requestString+="&";
         }
-        filter.requestString += "type="+$("#filterMenutype").find(".selection").val().toLowerCase();
+        filter.requestString += "type="+$("#filterMenutype").find(".selection").text().toLowerCase();
       }
       if ($("#filterMenuPriceRange").find(".selection").text()!="Price Range"){
         if (filter.requestString.length>0){
           filter.requestString+="&";
         }
-        filter.requestString += "priceRange="+$("#filterMenuPriceRange").find(".selection").val().length;
+        filter.requestString += "priceRange="+$("#filterMenuPriceRange").find(".selection").text().length;
       }
       if ($("#filtervegetarian").find("input")[0].checked){
         if (filter.requestString.length>0){
@@ -60,7 +60,7 @@ var filter = {
       data: filter.requestString,
       success: function(data) {
         console.log("filtered");
-        $(".menu").html("");
+        $(".menu").children("div").html("");
         menuPage.currentDataSet=JSON.parse(data);
         display.putMenuItems();
       },

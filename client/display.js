@@ -6,7 +6,7 @@ var display = {
         display.getAllMenuItems();
     },
     getAllMenuItems: function() {
-        $(".menu").html("");
+        $(".menu").children("div").html("");
         $.ajax({
             type: 'GET',
             url: '/menu',
@@ -23,7 +23,8 @@ var display = {
         var itemHTML;
         _.each(menuPage.currentDataSet, function(currVal, idx, arr) {
             itemHTML = menuPage.menuItemTemplate(currVal);
-            $('.menu').append(itemHTML);
+            var itemType = currVal.type;
+            $("."+itemType).append(itemHTML);
             if (menuPage.admin) {
                 $(".admin").removeClass("hidden");
             }
