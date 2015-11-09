@@ -19,9 +19,11 @@ var edit = {
                 data: editedItem,
                 success: function(data) {
                     console.log("edited", data);
-                    $item.parent().replaceWith(
-                        menuPage.menuItemTemplate(
-                            editedItem));
+                    $item.parent().remove();
+                    menuPage.currentDataSet = [
+                        editedItem
+                    ];
+                    display.putMenuItems();
                     if (menuPage.admin) {
                         $(".admin").removeClass(
                             "hidden");

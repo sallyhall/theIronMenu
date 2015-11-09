@@ -3,9 +3,14 @@ var add = {
         add.events();
     },
     events: function() {
+      $("header .dropdown-menu li a").on("click", function(event){
+        event.preventDefault();
+        $(this).parents(".dropdown").find(".selection").text($(this).text());
+      });
         $(".add-item-containersubmit").on("click", function(event) {
             var newMenuItem = add.addMenuItemForm();
             event.preventDefault();
+            add.resetForm();
             $.ajax({
                 type: 'POST',
                 url: "/add-item",
@@ -37,4 +42,8 @@ var add = {
         addItem.type = itemForm.find(".selection").text().trim().toLowerCase();
         return addItem;
     },
+    resetForm: function () {
+      $("header .itemPrice").val("");
+      $("header .itemName").val("");
+      }
 };
